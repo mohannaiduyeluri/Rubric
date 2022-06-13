@@ -1,18 +1,32 @@
+require("dotenv").config();
 const express = require("express");
 const app = express();
+const mongoose = require("mongoose");
 const path = require('path');
-const _dirname = path.resolve();
+
+const userRoutes = require('./server/routes/user');
+const postRoutes = require('./server/routes/post');
+const followerRoutes = require('./server/routes/follower');
+
+mongoose.connect(process.env.dbURL)
+  .then(console.log("DB Connected!!"))
+  .catch(error => console.log(error));
 
 app.use(express.json());
 
-app.use(express.static(_dirname + "/public"));
-app.get('/', (reg, res) => res.sendFile(path.join(_dirname, '/public', 'index.html')));
-app.use(function (reg, res, next) {
-    res.header("Access-Control-Allow-Origin", "*");
-    res.header("Access-Control-Allow-Headers", "Origin,X-Requested-Width, Content-Type, Accept, Authorization");
-    res.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS"),
-        next();
+app.use(express.static(__dirname + "/public"));
+app.get('/', (req, res) => res.sendFile(path.join(__dirname, '/public', 'index.html')));
+
+app.use(function(req, res, next) {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Headers", "Origin,X-Requested-Width,Content-Type,Accept,Authorization");
+  res.header("Access-Control-Allow-Methods", "GET,POST,PUT,DELETE,OPTIONS")
+  next();
 });
+
+app.use('/user', userRoutes);
+app.use('/post', postRoutes);
+app.use('/follower', followerRoutes);
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => console.log(`Server started on port ${PORT}!`));
