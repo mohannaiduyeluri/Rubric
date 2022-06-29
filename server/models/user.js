@@ -2,7 +2,7 @@
 //mongoose
 const mongoose = require("mongoose");
 //bcrypt
-const bcrypt = require('bcryptjs'); 
+const bcrypt = require('bcryptjs');
 
 
 // 2. create schema for entity
@@ -22,7 +22,7 @@ const User = mongoose.model("User", userSchema);
 async function register(name, emailId, password) {
     const user = await getUser(emailId);
     if (user) throw Error('Email already in use');
-    const salt = await  bcrypt.genSalt(10);
+    const salt = await bcrypt.genSalt(10);
     const hash = await bcrypt.hash(password, salt);
 
     const newUser = await User.create({
