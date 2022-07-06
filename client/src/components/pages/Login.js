@@ -29,8 +29,11 @@ function Login(props) {
             "POST")
             .then((data) => {
                 if (!data.message) {
-                    console.log(data)
-                    // props.isLoggedIn = true;
+                    console.log(data);
+                    // setIsLoggedIn(true);
+                    window.localStorage.setItem("isUserLoggedIn", true);
+                    window.localStorage.setItem("userId", data._id);
+                    // window.location.reload();
                     navigate("/posts");
                 }
             })
@@ -48,7 +51,7 @@ function Login(props) {
                     <div class="col-md-12 mb-4 mt-4">
                         <label class="form-label" >Email address</label>
                         <input 
-                            type="email" 
+                            type="email"  
                             class="form-control" 
                             name="emailId" 
                             aria-describedby="emailHelp" 

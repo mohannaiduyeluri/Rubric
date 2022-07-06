@@ -2,18 +2,9 @@ import "../../App.css";
 import Login from './Login';
 import Signup from './Signup';
 import { Outlet, Link } from "react-router-dom";
-import { useNavigate } from "react-router-dom";
 
-function Nav() {
-    const navigate = useNavigate();
-    const isLoggedIn = window.localStorage.getItem("isUserLoggedIn");
-    console.log("isLoggedIn", isLoggedIn);
-    const onSubmit = (e) => {
-        e.preventDefault();
-        window.localStorage.setItem("isUserLoggedIn", false);
-        window.localStorage.setItem("userId", 123);
-        navigate("/login");
-    }
+function Nav(props) {
+    const isLoggedIn = props.isLoggedIn;
 
     return (
         <div>
@@ -37,14 +28,13 @@ function Nav() {
                         </ul>
                         {isLoggedIn ?
                             <form class="d-flex">
-                                <button class="btn btn-outline-success"><Link className="nav-link" to="/signup">Signup</Link></button>
-                                <button class="btn btn-outline-success" ><Link className="nav-link" to="/login">Login</Link></button>
+                                <button class="btn btn-outline-success"><Link className="nav-link" to="/login">Log Out</Link></button>
                             </form>
                             :
                             <form class="d-flex">
-                                <button class="btn btn-outline-success" onClick={onSubmit}>Log Out</button>
+                                <button class="btn btn-outline-success"><Link className="nav-link" to="/signup">Signup</Link></button>
+                                <button class="btn btn-outline-success"><Link className="nav-link" to="/login">Login</Link></button>
                             </form>
-
                         }
                     </div>
                 </div>

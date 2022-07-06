@@ -8,7 +8,7 @@ router
     .post('/login', async (req, res) => {
         try {
             const user = await User.login(req.body.emailId, req.body.password);
-            res.send({ ...user, password: undefined });
+            res.send(user);
         } catch (error) {
             res.status(401).send({ message: error.message });
         }
@@ -16,7 +16,7 @@ router
     .get('/fetch/all', async (req, res) => {
         try {
             const user = await User.getAllUsers();
-            res.send({ ...user, password: undefined });
+            res.send(user);
         } catch (error) {
             res.status(401).send({ message: error.message });
         }
