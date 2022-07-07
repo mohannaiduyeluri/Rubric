@@ -10,15 +10,8 @@ import { useState } from "react";
 import { UserProvider } from './Context/UserContext';
 
 function App() {
-  // const isUserLoggedIn = false;
-  // const userId = "123";
-  // const [isUserLoggedIn, setIsUserLoggedIn] = useState(false);
-  // const [userId, setUserId] = useState(123);
-  window.localStorage.setItem("isUserLoggedIn", false);
-  window.localStorage.setItem("userId", 123);
   return (
     <div className="App">
-      {/* <Login/> */}
       <UserProvider>
         <BrowserRouter>
           <Routes>

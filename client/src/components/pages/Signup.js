@@ -3,17 +3,11 @@ import Nav from './Nav';
 import { fetchData } from "../../main.js";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import  UserContext  from '../../Context/UserContext';
+import UserContext from '../../Context/UserContext';
 import { useContext } from "react";
 
 const Signup = () => {
     const navigate = useNavigate();
-
-    // const [user, setUser] = useState({
-    //     name: '', //sandhya
-    //     emailId:'',
-    //     password: ''
-    // });
 
     const { user, updateUser } = useContext(UserContext);
 
@@ -23,7 +17,6 @@ const Signup = () => {
 
     const onSubmit = (e) => {
         e.preventDefault();
-        console.log("printing user object while signup before ", user);
         fetchData("/user/register",
             {
                 name, //cathy12
@@ -33,9 +26,7 @@ const Signup = () => {
             "POST")
             .then((data) => {
                 if (!data.message) {
-                    console.log(data)
-                    updateUser('isUserLoggedIn', true);
-                    console.log("printing user object while signup after ", user);
+                    updateUser('name', name);
                     navigate("/posts")
                 }
             })

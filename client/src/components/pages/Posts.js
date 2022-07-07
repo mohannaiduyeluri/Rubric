@@ -8,7 +8,6 @@ import { useContext } from "react";
 const Posts = (props) => {
   const navigate = useNavigate();
   const { user } = useContext(UserContext);
-  // console.log("printing props in posts", props)
   const [userNew, setUserNew] = useState([{
     _id: '',
     name: '',
@@ -32,7 +31,6 @@ const Posts = (props) => {
         "GET")
         .then((data) => {
           if (!data.message) {
-            console.log("users data", data)
             setUserNew(data);
           }
         })
@@ -49,7 +47,6 @@ const Posts = (props) => {
         "GET")
         .then((data) => {
           if (!data.message) {
-            console.log(data)
             setPost(data);
           }
         })
@@ -58,8 +55,6 @@ const Posts = (props) => {
         });
     }, 1000);
   }, []); // <- add empty brackets here
-
-
 
   const onSubmit = (e) => {
     e.preventDefault();
