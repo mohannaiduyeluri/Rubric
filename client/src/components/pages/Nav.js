@@ -8,6 +8,7 @@ import UserContext from "../../Context/UserContext";
 import { useContext } from "react";
 
 function Nav() {
+    alert("Nav");
     const navigate = useNavigate();
     // const isLoggedIn = window.localStorage.getItem("isUserLoggedIn");
     // console.log("isLoggedIn", isLoggedIn);
