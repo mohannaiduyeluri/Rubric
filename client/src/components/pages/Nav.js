@@ -19,19 +19,16 @@ function Nav() {
     const onSubmit = (e) => {
         e.preventDefault();
         updateUser('name', '');
-        // setTimeout(() => {
-            console.log("printing user nav after ", user);
-            navigate("/login");
-        // }, 1000);
-
+        console.log("printing user nav after ", user);
+        navigate("/login");
     }
 
     const authenticated = () => {
-        return <Fragment>
-            <form class="d-flex" onSubmit={onSubmit}>
-                <button class="btn btn-outline-success" >Log Out</button>
-            </form>
-        </Fragment>
+        return  <Fragment>
+                    <form class="d-flex" onSubmit={onSubmit}>
+                        <button class="btn btn-outline-success" >Log Out</button>
+                    </form>
+                </Fragment>
     }
     const unauthenticated = () => {
         console.log("unauthenticated got called ", user);
@@ -54,7 +51,7 @@ function Nav() {
                         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                             <li class="nav-item">
                                 {/* <a class="nav-link active" aria-current="page" href="#">Profile </a> */}
-                                <Link className="nav-link" to="/profile">Profile</Link>
+                                <Link className="nav-link" to="/">Profile</Link>
                             </li>
                             <li class="nav-item">
                                 {/* <a class="nav-link active" aria-current="page" href="#">Profile </a> */}

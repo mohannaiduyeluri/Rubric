@@ -22,9 +22,9 @@ function App() {
       <UserProvider>
         <BrowserRouter>
           <Routes>
-            <Route path="/" element={<Nav />}>
-              <Route path="profile" element={<Profile />} />
-              <Route index path="login" element={<Login />} />
+            <Route element={<Nav />}>
+              <Route index path="/" element={<Profile />} />
+              <Route path="login" element={<Login />} />
               <Route path="signup" element={<Signup />} />
               <Route path="posts" element={<Posts />} />
               <Route path="createpost" element={<CreatePost />} />
