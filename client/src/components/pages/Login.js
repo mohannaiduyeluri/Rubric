@@ -3,24 +3,22 @@ import Nav from './Nav';
 import { fetchData } from "../../main.js";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-
-
+import  UserContext  from '../../Context/UserContext';
+import { useContext } from "react";
+import Posts from "./Posts";
 
 function Login(props) {
     const navigate = useNavigate();
 
-    const [user, setUser] = useState({
-        emailId: '',
-        password: ''
-    });
+    const { user, updateUser } = useContext(UserContext);
 
     const { emailId, password } = user;
 
-    const onChange = (e) => setUser({ ...user, [e.target.name]: e.target.value })
+    const onChange = (e) => updateUser(e.target.name, e.target.value);
 
     const onSubmit = (e) => {
         e.preventDefault();
-
+        console.log("printing user while login before",{user});
         fetchData("/user/login",
             {
                 emailId,
@@ -30,11 +28,22 @@ function Login(props) {
             .then((data) => {
                 if (!data.message) {
                     console.log(data);
-                    // setIsLoggedIn(true);
-                    window.localStorage.setItem("isUserLoggedIn", true);
-                    window.localStorage.setItem("userId", data._id);
-                    // window.location.reload();
+                    // updateUser('isUserLoggedIn', true);
+                    // onChange({target:{name:'isUserLoggedIn',value:true}});
+                    // onChange({target:{name:'name',value:data.name}});
+                    // onChange({target:{name:'_id',value:data._id}});
+                    // updateUser((p) => ({ ...p, isUserLoggedIn: true }));
+                    // updateUser((p) => ({ ...p, name: data.name }));
+                    // updateUser((u) => ({ ...u, isUserLoggedIn: true }));
+                    // updateUser((u) => ({ ...u, name: data.name }));
+                    updateUser((user) => ({...user, name: data.name}));
+                    updateUser((user) => ({...user, _id: data._id}));
+                    // updateUser('name', data.name);
+                    // updateUser((p) => ({ ...p, _id: data._id }));
+
+                    console.log("printing user while login after ",{user});
                     navigate("/posts");
+                    
                 }
             })
             .catch((error) => {

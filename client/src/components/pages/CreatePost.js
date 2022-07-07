@@ -4,46 +4,43 @@ import { fetchData } from "../../main.js";
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { fetchDataNew } from "../../main.js";
+import UserContext from "../../Context/UserContext";
+import { useContext } from "react";
 
 const Posts = (props) => {
     const navigate = useNavigate();
-    const userId = window.localStorage.getItem("userId");
+
+    const { user } = useContext(UserContext);
+    const userId = user._id;
+
     const [post, setPost] = useState([{
-        userId : '',
         postTitle: '',
         postText: ''
-    }]);
-
-    const [users , setUsers] = useState([{
-        name: '',
-        emailId: '',
-        password: '',
-        createdTime: '',
-        modifiedTime: ''
     }]);
 
     const { postTitle, postText } = post;
 
     const onChange = (e) => setPost({ ...post, [e.target.name]: e.target.value })
 
-    useEffect(() => {
-        setTimeout(() => {
-            fetchDataNew("/user/fetch/all",
-                "GET")
-                .then((data) => {
-                    if (!data.message) {
-                        setUsers(data);
-                    }
-                })
-                .catch((error) => {
-                    console.log(error)
-                });
+    // useEffect(() => {
+    //     setTimeout(() => {
+    //         fetchDataNew("/user/fetch/all",
+    //             "GET")
+    //             .then((data) => {
+    //                 if (!data.message) {
+    //                     setUsers(data);
+    //                 }
+    //             })
+    //             .catch((error) => {
+    //                 console.log(error)
+    //             });
 
-        }, 1000);
-    }, []);
+    //     }, 1000);
+    // }, []);
 
     const onSubmit = (e) => {
         e.preventDefault();
+
         console.log(userId, postTitle, postText);
 
         fetchData("/post/create",

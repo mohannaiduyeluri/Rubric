@@ -2,11 +2,14 @@ import Nav from './Nav';
 import { fetchDataNew } from "../../main.js";
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import UserContext from "../../Context/UserContext";
+import { useContext } from "react";
 
 const Posts = (props) => {
   const navigate = useNavigate();
- 
-  const [user, setUserNew] = useState([{
+  const { user } = useContext(UserContext);
+  // console.log("printing props in posts", props)
+  const [userNew, setUserNew] = useState([{
     _id: '',
     name: '',
     emailId: '',
@@ -22,8 +25,6 @@ const Posts = (props) => {
     createdTime: '',
     modifiedTime: ''
   }]);
-
-
 
   useEffect(() => {
     setTimeout(() => {
@@ -72,6 +73,7 @@ const Posts = (props) => {
   }
   return (
     <div >
+      <h1>Hello, {user.name}</h1>
       <form onSubmit={onSubmit} class="mt-4 d-flex justify-content-end col-md-8">
         <button type="submit" class="btn btn-primary text-center mb-2">Create Post</button>
       </form>
@@ -82,9 +84,9 @@ const Posts = (props) => {
               <div class="card cord-box shadow-lg">
                 <div class="card-body">
                   <div class="text-center card-title"><h4>{post.postTitle} <small>by </small>
-                    {user.map((user, index) => {
+                    {userNew.map((userNew, index) => {
                       return (
-                        user._id === post.userId ? user.name : null
+                        userNew._id === post.userId ? userNew.name : null
                       )
                     })}</h4>
                   </div>

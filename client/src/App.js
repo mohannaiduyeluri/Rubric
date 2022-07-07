@@ -7,6 +7,7 @@ import Posts from './components/pages/Posts';
 import CreatePost from './components/pages/CreatePost';
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { useState } from "react";
+import { UserProvider } from './Context/UserContext';
 
 function App() {
   // const isUserLoggedIn = false;
@@ -18,17 +19,19 @@ function App() {
   return (
     <div className="App">
       {/* <Login/> */}
-      <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<Nav />}>
-            <Route path="profile" element={<Profile />} />
-            <Route index path="login" element={<Login />} />
-            <Route path="signup" element={<Signup />} />
-            <Route path="posts" element={<Posts />} />
-            <Route path="createpost" element={<CreatePost />} />
-          </Route>
-        </Routes>
-      </BrowserRouter>
+      <UserProvider>
+        <BrowserRouter>
+          <Routes>
+            <Route path="/" element={<Nav />}>
+              <Route path="profile" element={<Profile />} />
+              <Route index path="login" element={<Login />} />
+              <Route path="signup" element={<Signup />} />
+              <Route path="posts" element={<Posts />} />
+              <Route path="createpost" element={<CreatePost />} />
+            </Route>
+          </Routes>
+        </BrowserRouter>
+      </UserProvider>
     </div>
   );
 }

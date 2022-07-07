@@ -3,18 +3,45 @@ import Login from './Login';
 import Signup from './Signup';
 import { Outlet, Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
+import { Fragment } from "react";
+import UserContext from "../../Context/UserContext";
+import { useContext } from "react";
 
 function Nav() {
     const navigate = useNavigate();
-    const isLoggedIn = window.localStorage.getItem("isUserLoggedIn");
-    console.log("isLoggedIn", isLoggedIn);
+    // const isLoggedIn = window.localStorage.getItem("isUserLoggedIn");
+    // console.log("isLoggedIn", isLoggedIn);
+
+    const { user, updateUser } = useContext(UserContext);
+
+    const onChange = (e) => updateUser(e.target.name, e.target.value)
+    console.log("printing user in nav bar ", user);
     const onSubmit = (e) => {
         e.preventDefault();
-        window.localStorage.setItem("isUserLoggedIn", false);
-        window.localStorage.setItem("userId", 123);
-        navigate("/login");
+        updateUser('name', '');
+        // setTimeout(() => {
+            console.log("printing user nav after ", user);
+            navigate("/login");
+        // }, 1000);
+
     }
 
+    const authenticated = () => {
+        return <Fragment>
+            <form class="d-flex" onSubmit={onSubmit}>
+                <button class="btn btn-outline-success" >Log Out</button>
+            </form>
+        </Fragment>
+    }
+    const unauthenticated = () => {
+        console.log("unauthenticated got called ", user);
+        return <Fragment>
+            <form class="d-flex">
+                <button class="btn btn-outline-success"><Link className="nav-link" to="/signup">Signup</Link></button>
+                <button class="btn btn-outline-success" ><Link className="nav-link" to="/login">Login</Link></button>
+            </form>
+        </Fragment>
+    }
     return (
         <div>
             < nav class="navbar navbar-expand-lg navbar-dark bg-dark" >
@@ -35,7 +62,7 @@ function Nav() {
                             </li>
 
                         </ul>
-                        {isLoggedIn ?
+                        {/* {isLoggedIn ?
                             <form class="d-flex">
                                 <button class="btn btn-outline-success"><Link className="nav-link" to="/signup">Signup</Link></button>
                                 <button class="btn btn-outline-success" ><Link className="nav-link" to="/login">Login</Link></button>
@@ -44,8 +71,8 @@ function Nav() {
                             <form class="d-flex">
                                 <button class="btn btn-outline-success" onClick={onSubmit}>Log Out</button>
                             </form>
-
-                        }
+                        } */}
+                        {user.name ==  ''? unauthenticated() : authenticated()}
                     </div>
                 </div>
             </nav >
