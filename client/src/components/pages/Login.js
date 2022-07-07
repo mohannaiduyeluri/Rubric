@@ -36,9 +36,9 @@ function Login(props) {
                     // updateUser((p) => ({ ...p, name: data.name }));
                     // updateUser((u) => ({ ...u, isUserLoggedIn: true }));
                     // updateUser((u) => ({ ...u, name: data.name }));
-                    updateUser((user) => ({...user, name: data.name}));
-                    updateUser((user) => ({...user, _id: data._id}));
-                    // updateUser('name', data.name);
+                    // updateUser((user) => ({...user, name: data.name}));
+                    // updateUser((user) => ({...user, _id: data._id}));
+                    updateUser('name', data.name);
                     // updateUser((p) => ({ ...p, _id: data._id }));
 
                     console.log("printing user while login after ",{user});

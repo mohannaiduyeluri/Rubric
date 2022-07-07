@@ -21,7 +21,7 @@ export async function fetchData(route='', data={}, methodType) {
 
   export async function fetchDataNew(route='', methodType) {
     //sending over our data to specified route in server
-    const response = await fetch(`http://localhost:4000${route}`, {
+    const response = await fetch(`${route}`, {
       method: methodType
     });
   

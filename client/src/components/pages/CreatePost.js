@@ -11,7 +11,7 @@ const Posts = (props) => {
     const navigate = useNavigate();
 
     const { user } = useContext(UserContext);
-    const userId = user._id;
+    const userId = "123";
 
     const [post, setPost] = useState([{
         postTitle: '',
