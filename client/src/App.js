@@ -22,7 +22,7 @@ function App() {
       <UserProvider>
         <BrowserRouter>
           <Routes>
-            <Route element={<Nav />}>
+            <Route element={<Nav />}> 
               <Route index path="/" element={<Profile />} />
               <Route path="login" element={<Login />} />
               <Route path="signup" element={<Signup />} />
